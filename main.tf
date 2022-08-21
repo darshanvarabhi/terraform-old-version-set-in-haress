@@ -1,3 +1,6 @@
+variable "secret_key" {}
+variable "access_key" {}
+
 terraform {
   required_providers {
     aws = {
@@ -8,9 +11,13 @@ terraform {
 }
 
 # Configure the AWS Provider
+
 provider "aws" {
-  region = "us-east-1"
+  region     = "us-west-2"
+  access_key = var.access_key
+  secret_key = var.secret_key
 }
+
 
 # Create a VPC
 resource "aws_vpc" "example" {
