@@ -18,8 +18,14 @@ provider "aws" {
   secret_key = var.secret_key
 }
 
+data "aws_ssm_parameter" "foo" {
+  name = "test"
+}
 
 # Create a VPC
 resource "aws_vpc" "example" {
   cidr_block = "10.0.0.0/16"
+  tags = {
+    Name = nonsensitive(data.aws_ssm_parameter.foo.value)
+  }
 }
